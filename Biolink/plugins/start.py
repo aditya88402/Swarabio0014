@@ -8,8 +8,8 @@ def register(app):
             f"👋 Hello {message.from_user.first_name}, welcome to Bio Mute Bot!",
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton("➕ Add me to your group", url="https://t.me/YourBotUsername?startgroup=true")],
-                    [InlineKeyboardButton("📢 Update Channel", url="https://t.me/YourChannel")],
+                    [InlineKeyboardButton("➕ Add me to your group", url="https://t.me/Aaradhyasongbot?startgroup=true")],
+                    [InlineKeyboardButton("📢 Update Channel", url="https://t.me/shivang_xd")],
                     [InlineKeyboardButton("❓ Help", callback_data="help")]
                 ]
             )
