@@ -32,7 +32,7 @@ A powerful Telegram moderation bot that mutes users based on bio content (like l
 ```bash
 # Clone the repo
 git clone https://github.com/riteshxcoder/Biolink.git
-cd bio-mute-bot
+cd biolink
 
 # Install dependencies
 sudo apt update
