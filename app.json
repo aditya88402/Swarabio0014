@@ -1,7 +1,7 @@
 {
   "name": "Bio Mute Bot",
   "description": "Telegram bot that mutes users based on bio content, warns on links, and supports broadcasts.",
-  "repository": "https://github.com/riteshxcoder/Biolink",
+  "repository": "https://github.com/Shivmis/biolinkmute1",
   "keywords": ["telegram", "pyrogram", "bot", "bio", "mute", "heroku"],
   "env": {
     "API_ID": {
@@ -23,10 +23,6 @@
     "MONGO_URI": {
       "description": "MongoDB connection URI",
       "required": true
-    },
-    "MUTE_DURATION_HOURS": {
-      "description": "Default mute duration in hours",
-      "value": "4"
     }
   },
   "buildpacks": [
