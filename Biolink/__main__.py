@@ -1,8 +1,7 @@
-from pyrogram import Client
-from bot.config import API_ID, API_HASH, BOT_TOKEN
-from bot.handlers import start_handler
-from bot.plugins import welcome, moderation, broadcast, owner
-from bot.plugins import callback
+from pyrogram import Client, idle
+from Biolink.config import API_ID, API_HASH, BOT_TOKEN
+from Biolink.plugins import start, welcome, broadcast, owner, callback
+from Biolink.utils import database
 
 app = Client(
     "bio_mute_bot",
@@ -11,13 +10,15 @@ app = Client(
     bot_token=BOT_TOKEN
 )
 
-# Register handlers
-start_handler.register(app)
+# Register all plugin handlers
+start.register(app)
 welcome.register(app)
-moderation.register(app)
+database.register(app)
 broadcast.register(app)
 owner.register(app)
 callback.register(app)
 
-print("🤖 Bio Mute Bot is running...")
+async def main():
+    await app.start()
+    print("🤖 Bio Mute Bot is running...")
 app.run()
