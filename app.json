@@ -1,7 +1,7 @@
 {
   "name": "Bio Mute Bot",
   "description": "Telegram bot that mutes users based on bio content, warns on links, and supports broadcasts.",
-  "repository": "https://github.com/Shivmis/biolinkmute1",
+  "repository": "https://github.com/riteshxcoder/Biolink",
   "keywords": ["telegram", "pyrogram", "bot", "bio", "mute", "heroku"],
   "env": {
     "API_ID": {
