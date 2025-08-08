@@ -1,6 +1,6 @@
 from pyrogram import filters
 from pyrogram.types import Message
-from bot.config import OWNER_ID
+from Biolink.config import OWNER_ID
 
 def register(app):
     @app.on_message(filters.command("restart") & filters.user(OWNER_ID))

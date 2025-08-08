@@ -8,6 +8,5 @@ def register(app):
             "📚 Help Menu:\n\n"
             "/start - Start bot\n"
             "/broadcast - Broadcast to all\n"
-            "Auto-mutes users with links in bio or message\n"
-            "Warns on link, mutes on 4 warns, etc.",
-        )
+            "Auto-delete users with links in bio or message",
+            )
