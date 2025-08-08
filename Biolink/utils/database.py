@@ -1,41 +1,47 @@
-from motor.motor_asyncio import AsyncIOMotorClient
-from bot.config import MONGO_URI, MUTE_DURATION_HOURS
-from datetime import datetime, timedelta
-from pyrogram.enums import ChatPermissions
+import asyncio
+from pyrogram import Client, filters
+from pyrogram.types import Message
+from pymongo import MongoClient
 
-db = AsyncIOMotorClient(MONGO_URI).bio_mute
-warns = db.warns
+mongo_client = MongoClient("YOUR_MONGO_URI")
+db = mongo_client["your_db_name"]
 
-def is_link_or_username(text: str) -> bool:
-    text = text.lower()
-    return "http" in text or "t.me/" in text or "@" in text
+def has_link(text: str) -> bool:
+    keywords = ["http://", "https://", "t.me/", "www.", "@"]
+    return any(word in text.lower() for word in keywords)
 
-async def add_warn(chat_id: int, user_id: int) -> int:
-    user = await warns.find_one({"chat_id": chat_id, "user_id": user_id})
-    if user:
-        count = user["warns"] + 1
-        await warns.update_one({"chat_id": chat_id, "user_id": user_id}, {"$set": {"warns": count}})
-    else:
-        count = 1
-        await warns.insert_one({"chat_id": chat_id, "user_id": user_id, "warns": count})
-    return count
+async def delete_later(message: Message, delay: int):
+    await asyncio.sleep(delay)
+    try:
+        await message.delete()
+    except Exception as e:
+        print(f"⚠️ Warning message delete error: {e}")
 
-async def get_warns(chat_id: int, user_id: int) -> int:
-    user = await warns.find_one({"chat_id": chat_id, "user_id": user_id})
-    return user["warns"] if user else 0
+def register(app: Client):
+    @app.on_message(filters.group & ~filters.service)
+    async def moderate_message(client: Client, message: Message):
+        if not message.from_user:
+            return
 
-async def mute_user(client, chat_id, user_id, reason="", permanent=False, private_notify=False):
-    until = None if permanent else datetime.utcnow() + timedelta(hours=MUTE_DURATION_HOURS)
-    await client.restrict_chat_member(
-        chat_id,
-        user_id,
-        ChatPermissions(),
-        until_date=until
-    )
-    if not permanent:
-        await client.send_message(chat_id, f"🔇 User muted for {MUTE_DURATION_HOURS} hours. Reason: {reason}")
-    if private_notify:
         try:
-            await client.send_message(user_id, f"You have been muted in {chat_id} due to: {reason}")
-        except:
-            pass
+            chat = await client.get_chat(message.from_user.id)
+            bio = getattr(chat, "bio", "") or ""
+        except Exception as e:
+            print(f"⚠️ Bio fetch error: {e}")
+            bio = ""
+
+        if has_link(bio):
+            try:
+                await message.delete()
+                warn_msg = await message.reply_text(
+    f"⚠️ {message.from_user.mention}, aapke bio mein link ya username hone ki wajah se aapka message delete kar diya gaya hai."
+                )
+                asyncio.create_task(delete_later(warn_msg, 10))
+            except Exception as e:
+                print(f"⚠️ Message delete/reply error: {e}")
+
+def get_all_groups():
+    return list(db.groups.find({}))
+
+def get_all_users():
+    return list(db.users.find({}))
