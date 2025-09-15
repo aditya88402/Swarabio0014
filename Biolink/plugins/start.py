@@ -17,13 +17,13 @@ If you need help or updates, check the buttons below 👇"""
         
         buttons = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("➕ Add me to your group", url="https://t.me/BiolinkTetrisbot")],
+                [InlineKeyboardButton("➕ Add me to your group", url="https://t.me/Biolinkhypertetris_bot")],
                 [InlineKeyboardButton("📢 Updates Channel", url="https://t.me/TG_HEISTS")],
                 [InlineKeyboardButton("❓ Help & Commands", callback_data="help")]
             ]
         )
 
-        photo_url = "https://graph.org/file/fab32af0223055637d4a6-356f444b3e7453b4d6.jpg"
+        photo_url = "https://files.catbox.moe/53eipa.jpg"
 
         try:
             # Group mein photo bhejna kabhi kabhi permission issue de sakta hai
