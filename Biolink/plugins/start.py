@@ -17,7 +17,7 @@ If you need help or updates, check the buttons below 👇"""
         
         buttons = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("➕ Add me to your group", url="https://t.me/Biolinkhypertetris_bot")],
+                                [InlineKeyboardButton("➕ Add me to your group", url="https://t.me/Biolinkhypertetris_bot?startgroup=true")],
                 [InlineKeyboardButton("📢 Updates Channel", url="https://t.me/TG_HEISTS")],
                 [InlineKeyboardButton("❓ Help & Commands", callback_data="help")]
             ]
